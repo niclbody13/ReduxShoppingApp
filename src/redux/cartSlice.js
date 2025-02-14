@@ -7,12 +7,19 @@ const cart = createSlice({
         addToCart(state, action) {
             console.log('before add action: ', action.payload)
             const { item, quantity } = action.payload
-            const updateditem = {...item, inStock: item.inStock - quantity}
-            state.push({
-                // action.payload
-                item: updateditem,
-                quantity                
-            })
+            const existingItem = state.find(i => i.item.id === item.id)
+
+            if(existingItem) {
+                existingItem.quantity += quantity
+                existingItem.item.inStock -= quantity
+            } else {   
+                const updateditem = {...item, inStock: item.inStock - quantity}
+                state.push({
+                    // action.payload
+                    item: updateditem,
+                    quantity                
+                })
+            }
         },
         removeFromCart(state, action) {
             console.log('action: ', action.payload)

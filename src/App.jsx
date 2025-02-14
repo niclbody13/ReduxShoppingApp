@@ -5,6 +5,8 @@ import { setItems } from './redux/itemsSlice'
 import DisplayItems from './components/Items'
 import DisplayCart from './components/Cart'
 
+import { Global, css } from '@emotion/react'
+
 export default function App() {
     const dispatch = useDispatch()
 
@@ -12,7 +14,7 @@ export default function App() {
         fetchData()
     }, [])
 
-    async function fetchData() {    
+    async function fetchData() {
         try {
             const res = await fetch('/products.json')
             const resBody = await res.json()
@@ -28,14 +30,26 @@ export default function App() {
             return null
         }
     }
-    
+
     return (
-       <>
-            <h1>
-                Penny Candy Store
-            </h1>
-            <DisplayCart />
-            <DisplayItems/>
+        <>
+            <Global
+                styles={css`
+          body {
+              background-color: #E6E6FA;
+            }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0;
+        }
+            `}
+            />
+            <div>
+                <h1>Welcome to the Candy Store!</h1>
+                <DisplayCart />
+                <DisplayItems />
+            </div>
         </>
     )
 }
