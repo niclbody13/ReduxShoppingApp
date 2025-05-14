@@ -16,7 +16,7 @@ export default function App() {
 
     async function fetchData() {
         try {
-            const res = await fetch('/products.json')
+            const res = await fetch(`${import.meta.env.BASE_URL}products.json`);
             const resBody = await res.json()
             console.log(resBody)
             dispatch(setItems(resBody))
